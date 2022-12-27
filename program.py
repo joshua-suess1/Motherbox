@@ -15,7 +15,7 @@ import subprocess
 #************************************************* LOAD SETTINGS *************************************************#
 instanceID = subprocess.check_output(["hostname"])
 userName = subprocess.check_output(["echo %USERNAME%"])
-print(instanceID)
+print(str(instanceID))
 driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
 chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
 
@@ -28,7 +28,7 @@ videoURL = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
-  if(instanceID in blob.name):
+  if(str(instanceID) in blob.name):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
 if videoName == "":
