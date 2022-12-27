@@ -12,14 +12,14 @@ import sys
 import csv
 import subprocess
 
-#*************************************** LOAD SETTINGS ***************************************#
+#************************************************* LOAD SETTINGS *************************************************#
 instanceID = subprocess.check_output(["hostname"])
 userName = subprocess.check_output(["whoami"])
 print(instanceID)
 driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
 chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
 
-#************************************ FIND MATCHING VIDEO ************************************#
+#********************************************** FIND MATCHING VIDEO **********************************************#
 cred = credentials.Certificate("cred.json")
 firebase_admin.initialize_app(cred,{'storageBucket': 'motherbox-4ae00.appspot.com'}) 
 
@@ -35,12 +35,12 @@ if videoName == "":
   sys.exit("VIDEO NOT FOUND")
   time.sleep(30)
 
-#*************************************** DOWNLOAD VIDEO ***************************************#
+#************************************************* DOWNLOAD VIDEO *************************************************#
 response = requests.get(videoURL)
 with open(f"{videoName}", "wb") as file:
   file.write(response.content)
 
-#**************************************** UPLOAD VIDEO ****************************************#
+#************************************************** UPLOAD VIDEO **************************************************#
 options = webdriver.ChromeOptions()
 options.add_argument("start-maximized")
 options.add_argument(f"user-data-dir={chromeDir}")
