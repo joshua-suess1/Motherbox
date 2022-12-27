@@ -28,7 +28,7 @@ videoURL = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
-  if(instanceID.find(blob.name) != -1):
+  if(instanceID.find in blob.name):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
 if videoName == "":
