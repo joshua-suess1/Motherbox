@@ -12,12 +12,11 @@ import sys
 import csv
 import subprocess
 
-
 #*************************************** LOAD SETTINGS ***************************************#
 instanceID = subprocess.run(["hostname"], capture_output=True)
 userName = subprocess.run(["echo %USERNAME%"], capture_output=True)
-driverPath = f"C:\Users\{userName}}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\chromedriver"
-chromeDir = f"C:\Users\{userName}}\AppData\Local\Google\Chrome\User Data" 
+driverPath = f"C:\Users\{userName}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\chromedriver"
+chromeDir = f"C:\Users\{userName}\AppData\Local\Google\Chrome\User Data" 
 
 #************************************ FIND MATCHING VIDEO ************************************#
 cred = credentials.Certificate("cred.json")
