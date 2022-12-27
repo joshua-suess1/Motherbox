@@ -10,18 +10,14 @@ import requests
 import datetime
 import sys
 import csv
+import subprocess
 
 
 #*************************************** LOAD SETTINGS ***************************************#
-with open('settings.csv', 'r') as file:
-  reader = csv.reader(file)
-  for row in reader:
-    nodeID = row[0]
-    clientID = row[1]
-    tempDir = row[2]
-    driverPath = row[3]
-    chromeDir = row[4]
-    description = row[5]
+instanceID = subprocess.run(["hostname"], capture_output=True)
+userName = subprocess.run(["echo %USERNAME%"], capture_output=True)
+driverPath = f"C:\Users\{userName}}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\chromedriver"
+chromeDir = f"C:\Users\{userName}}\AppData\Local\Google\Chrome\User Data" 
 
 #************************************ FIND MATCHING VIDEO ************************************#
 cred = credentials.Certificate("cred.json")
@@ -32,8 +28,7 @@ videoURL = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
-  parts = blob.name.split("-")
-  if(parts[0] == nodeID and parts[1][:parts[1].index(".")] == clientID):
+  if(blob.name[:blob.name.index(".")] == instanceID):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
 if videoName == "":
@@ -41,7 +36,7 @@ if videoName == "":
 
 #*************************************** DOWNLOAD VIDEO ***************************************#
 response = requests.get(videoURL)
-with open(f"{tempDir}/{videoName}", "wb") as file:
+with open(f"{videoName}", "wb") as file:
   file.write(response.content)
 
 #**************************************** UPLOAD VIDEO ****************************************#
@@ -102,7 +97,7 @@ iFrame = driver.find_element(By.CSS_SELECTOR, "iframe")
 driver.switch_to.frame(iFrame)
 time.sleep(5)
 upload_area = driver.find_element(By.CSS_SELECTOR,"div[class*='upload-card']")
-drag_and_drop_file(upload_area, f"{tempDir}/{videoName}")
+drag_and_drop_file(upload_area, f"{videoName}")
 time.sleep(20)
 caption = driver.find_element(By.CSS_SELECTOR,"div[class*='notranslate public-DraftEditor-content']")
 caption.clear()
