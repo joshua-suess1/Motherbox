@@ -16,7 +16,6 @@ import subprocess
 instanceID = subprocess.check_output(["hostname"])
 userName = subprocess.check_output(["whoami"])
 print(instanceID)
-time.sleep(30)
 driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
 chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
 
@@ -34,6 +33,7 @@ for blob in bucket.list_blobs():
     videoURL = blob.generate_signed_url(expiration)
 if videoName == "":
   sys.exit("VIDEO NOT FOUND")
+  time.sleep(30)
 
 #*************************************** DOWNLOAD VIDEO ***************************************#
 response = requests.get(videoURL)
