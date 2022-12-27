@@ -13,9 +13,9 @@ import csv
 import subprocess
 
 #*************************************** LOAD SETTINGS ***************************************#
-instanceID = subprocess.run(["hostname"], capture_output=True)
-userName = subprocess.run(["whoami"], capture_output=True)
-print(f"THIS IS IT: {instanceID}")
+instanceID = subprocess.check_output(["hostname"])
+userName = subprocess.check_output(["whoami"])
+print(instanceID)
 time.sleep(30)
 driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
 chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
