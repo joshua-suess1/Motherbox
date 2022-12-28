@@ -15,10 +15,10 @@ import subprocess
 #************************************************* LOAD SETTINGS *************************************************#
 instanceID = subprocess.check_output(["hostname"])
 userName = subprocess.check_output(["whoami"])
-print(str(userName))
+print(str(userName).split("\\")[1])
 time.sleep(30)
-driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
-chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
+driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(str(userName).split("\\")[1])
+chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(str(userName).split("\\")[1]) 
 
 #********************************************** FIND MATCHING VIDEO **********************************************#
 cred = credentials.Certificate("cred.json")
