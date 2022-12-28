@@ -37,6 +37,7 @@ for blob in bucket.list_blobs():
     videoURL = blob.generate_signed_url(expiration)
     metadata = blob.metadata
     print(metadata[1])
+    videoDescription = metadata[1]
 if videoName == "":
   sys.exit("VIDEO NOT FOUND")
   time.sleep(30)
