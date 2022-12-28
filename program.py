@@ -28,12 +28,15 @@ firebase_admin.initialize_app(cred,{'storageBucket': 'motherbox-4ae00.appspot.co
 
 videoName = ""
 videoURL = ""
+videoDescription = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
   if(hostName in blob.name):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
+    metadata = blob.get_metadata()
+    videoDescription = metadata.description
 if videoName == "":
   sys.exit("VIDEO NOT FOUND")
   time.sleep(30)
@@ -105,7 +108,7 @@ drag_and_drop_file(upload_area, os.path.join(os.getcwd(), videoName))
 time.sleep(20)
 caption = driver.find_element(By.CSS_SELECTOR,"div[class*='notranslate public-DraftEditor-content']")
 caption.clear()
-caption.send_keys(description)
+caption.send_keys(videoDescription)
 time.sleep(5)
 buttons = driver.find_element(By.CSS_SELECTOR,"div[class*='btn-post']")
 buttons.click()
