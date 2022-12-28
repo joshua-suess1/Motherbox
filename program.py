@@ -14,7 +14,7 @@ import subprocess
 
 #************************************************* LOAD SETTINGS *************************************************#
 instanceID = subprocess.check_output(["hostname"])
-userName = subprocess.check_output(["whoami"])
+userName = subprocess.check_output(["echo %USERNAME%"])
 print("WTF")
 print(str(userName))
 time.sleep(30)
