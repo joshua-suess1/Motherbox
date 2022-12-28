@@ -15,16 +15,13 @@ import os
 import socket
 
 #************************************************* LOAD SETTINGS *************************************************#
-instanceID = subprocess.check_output(["hostname"])
 userName = os.getenv("USERNAME")
 hostName = socket.gethostname()
-print("WTF")
-print(str(userName))
-print(str(instanceID))
-print(str(hostName))
+print(userName)
+print(hostName)
 time.sleep(30)
-driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(str(userName).split("\\")[1])
-chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(str(userName).split("\\")[1]) 
+driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
+chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
 
 #********************************************** FIND MATCHING VIDEO **********************************************#
 cred = credentials.Certificate("cred.json")
@@ -35,7 +32,7 @@ videoURL = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
-  if(str(instanceID) in blob.name):
+  if(hostName == blob.name):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
 if videoName == "":
