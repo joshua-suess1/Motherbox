@@ -117,6 +117,6 @@ driver.quit()
 #************************************************* DELETE VIDEO *************************************************#
 if os.path.exists(videoName):
     os.remove(videoName)
-    print("File deleted.")
+    print("Video file deleted.")
 else:
-    print("The file does not exist.")
+    print("Video file does not exist.")
