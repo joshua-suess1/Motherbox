@@ -31,8 +31,6 @@ videoURL = ""
 expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
 bucket = storage.bucket()
 for blob in bucket.list_blobs():
-  print(hostName)
-  print(blob.name)
   if(hostName in blob.name):
     videoName = blob.name
     videoURL = blob.generate_signed_url(expiration)
@@ -115,3 +113,10 @@ time.sleep(30)
 
 driver.quit()
 
+
+#************************************************* DELETE VIDEO *************************************************#
+if os.path.exists(videoName):
+    os.remove(videoName)
+    print("File deleted.")
+else:
+    print("The file does not exist.")
