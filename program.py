@@ -19,7 +19,6 @@ userName = os.getenv("USERNAME")
 hostName = socket.gethostname()
 print(userName)
 print(hostName)
-time.sleep(30)
 driverPath = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\chromedriver".format(userName)
 chromeDir = "C:\\Users\\{}\\AppData\\Local\\Google\\Chrome\\User Data".format(userName) 
 
