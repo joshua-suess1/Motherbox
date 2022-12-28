@@ -12,11 +12,12 @@ import sys
 import csv
 import subprocess
 import os
+import socket
 
 #************************************************* LOAD SETTINGS *************************************************#
 instanceID = subprocess.check_output(["hostname"])
 userName = os.getenv("USERNAME")
-hostName = os.uname().nodename
+hostName = socket.gethostname()
 print("WTF")
 print(str(userName))
 print(str(instanceID))
